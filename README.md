@@ -12,3 +12,7 @@ curl http://$ip:4000/sender/mail -d "tos=a@a.com,b@b.com&subject=xx&content=yy"
 zzlyzq修改为startls版本
 =============
 2017 06 16 修改明文smtp为startls，只是支持587端口的smtp发送。
+zzlyzq修改为startls版本
+=============
+wuxin4692修改用来支持发送ｈｔｍｌ模板
+

@@ -19,9 +19,9 @@ func prepare() {
 func init() {
 	prepare()
 
-	cfg := flag.String("c", "cfg.json", "configuration file")
-	version := flag.Bool("v", false, "show version")
-	help := flag.Bool("h", false, "help")
+	cfg := flag.String("c", "cfg.json", "配置文件")
+	version := flag.Bool("v", false, "查看版本")
+	help := flag.Bool("h", false, "帮助")
 	flag.Parse()
 
 	handleVersion(*version)

@@ -14,6 +14,7 @@ func init() {
 }
 
 func Start() {
+	//取配置文件ｊｓｏｎ中的监听 地址:端口号
 	addr := config.Config().Http.Listen
 	if addr == "" {
 		return

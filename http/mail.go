@@ -10,8 +10,8 @@ import (
 	"net/mail"
 	"net/smtp"
 
-	"github.com/toolkits/web/param"
 	"github.com/wuxin4692/mail-provider/config"
+	"github.com/wuxin4692/web/param"
 )
 
 func configProcRoutes() {

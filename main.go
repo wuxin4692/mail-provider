@@ -12,7 +12,9 @@ import (
 )
 
 func prepare() {
+	//GOMAXPROCS设置可同时执行的最大CPU数，并返回先前的设置。 若 n < 1，它就不会更改当前设置。本地机器的逻辑CPU数可通过 NumCPU 查询。
 	runtime.GOMAXPROCS(runtime.NumCPU())
+	//初始化日志格式　19
 	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
 }
 

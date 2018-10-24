@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 )
 
+//
 type HttpConfig struct {
 	Listen string `json:"listen"`
 	Token  string `json:"token"`

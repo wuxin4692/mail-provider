@@ -20,7 +20,7 @@ func Start() {
 	}
 	s := &http.Server{
 		Addr:           addr,
-		MaxHeaderBytes: 1 << 30,
+		MaxHeaderBytes: 1 << 20, // 请求的头域最大长度
 	}
 	log.Println("http listening", addr)
 	log.Fatalln(s.ListenAndServe())

@@ -6,7 +6,7 @@ import (
 	"log"
 	"sync"
 
-	"github.com/toolkits/file"
+	"io/ioutil"
 )
 
 type HttpConfig struct {
@@ -33,6 +33,7 @@ var (
 	configLock = new(sync.RWMutex)
 )
 
+//读锁
 func Config() *GlobalConfig {
 	configLock.RLock()
 	defer configLock.RUnlock()
@@ -40,31 +41,36 @@ func Config() *GlobalConfig {
 }
 
 func Parse(cfg string) error {
+	//如果cfg为空，返回错误信息
 	if cfg == "" {
-		return fmt.Errorf("use -c to specify configuration file")
+		return fmt.Errorf("使用 -c 参数来指定配置文件")
 	}
-
+	//如果ｃｆｇ路径的文件不存在则返回错误信息
 	if !file.IsExist(cfg) {
-		return fmt.Errorf("configuration file %s is nonexistent", cfg)
+		return fmt.Errorf("文件 %s 不存在", cfg)
 	}
 
 	ConfigFile = cfg
-
-	configContent, err := file.ToTrimString(cfg)
+	//读取文件内容并转换为ｓｔｒｉｎｇ类型
+	b, err := ioutil.ReadFile(cfg)
 	if err != nil {
-		return fmt.Errorf("read configuration file %s fail %s", cfg, err.Error())
+		return fmt.Errorf("读取文件 %s 错误: %s", cfg, err.Error())
 	}
-
+	ｓｔｒ := string(b)
+	//去掉空格
+	cfg_str := strings.TrimSpace(str)
+	//将上面步骤读取的配置文件中的json反序列化并存到　ＧｌｏｂａｌＣｏｎｆｉｇ　结构体中
 	var c GlobalConfig
-	err = json.Unmarshal([]byte(configContent), &c)
+	err = json.Unmarshal([]byte(ｃｆｇ_str), &c)
 	if err != nil {
-		return fmt.Errorf("parse configuration file %s fail %s", cfg, err.Error())
+		return fmt.Errorf("反序列化 %s 错误: %s", cfg, err.Error())
 	}
-
+	//锁定写操作
 	configLock.Lock()
+	//跳转到函数最后并解除锁定
 	defer configLock.Unlock()
 	config = &c
 
-	log.Println("load configuration file", cfg, "successfully")
+	log.Println("读取配置文件", cfg, "成功....")
 	return nil
 }
